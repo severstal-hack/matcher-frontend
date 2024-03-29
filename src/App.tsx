@@ -47,34 +47,29 @@ function App() {
   };
 
   const handleClick = async () => {
-    const res = await Service.query(selected);
     setLoading(true);
-    setEntries(
-      res.map((item: string) => {
-        return {
-          name: item,
-          link: "lorem",
-        };
-      })
-    );
+    const res = await Service.query(selected);
+    setEntries(res);
     setLoading(false);
   };
 
   return (
     <div>
-      <span>Выберите пункт: </span>
-      <select className="p-2" value={selected} onChange={handleChange}>
-        <option value="0">Выберите пункт</option>
-        {opts.map((o: string) => (
-          <option value={o}>{o}</option>
-        ))}
-      </select>
-      <button
-        className="mt-16 bg-blue-500 text-white rounded-sm p-2"
-        onClick={handleClick}
-      >
-        Показать
-      </button>
+      <div className="mt-16">
+        <span className="text-2xl">Выберите пункт: </span>
+        <select className="p-2" value={selected} onChange={handleChange}>
+          <option value="0">Выберите пункт</option>
+          {opts.map((o: string) => (
+            <option value={o}>{o}</option>
+          ))}
+        </select>
+        <button
+          className="ml-4 bg-blue-500 text-white rounded-sm p-2"
+          onClick={handleClick}
+        >
+          Показать
+        </button>
+      </div>
       <div className="mt-16 w-full">
         <table className="border table rounded-sm w-full">
           <thead>
@@ -92,7 +87,7 @@ function App() {
               entries.map((item: Entry) => (
                 <tr className="" key={item.name}>
                   <td className="px-2 py-2 border text-left">{item.name}</td>
-                  <td className="px-2 py-2 border text-left">
+                  <td className="px-2 py-2 border text-left text-blue-400 hover:underline">
                     <a href={item.link}>{item.link}</a>
                   </td>
                 </tr>
